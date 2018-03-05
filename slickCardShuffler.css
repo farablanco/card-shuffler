@@ -1,0 +1,53 @@
+/*
+    CSS for slickCardShuffler.html
+*/
+
+body {
+    margin-top: 150px;
+    margin-left: 300px;
+}
+
+.singsongy {
+    font-family: "Lucida Handwriting";
+    letter-spacing: .3em;
+}
+
+.dealerWindow{
+    width: 350px;
+    height: 80px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-style: solid;
+    border-color: transparent;
+    border-width: medium;
+    padding: 10px;
+    font-family: "Lucida Console";
+    box-shadow: inset 1px 1px 3px #999;
+}
+
+.window {
+    float: left;
+    width: 570px;
+    height: 350px;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.window p{
+    font-family: "Meiryo";
+    font-weight: bold;
+    margin-bottom: 5px;
+    padding-left: 2px;
+}
+
+.innerWindow {
+    float: left;
+    width: 500px;
+    height: 230px;
+    padding: 20px;
+    padding-top: 70px;
+    border-style: solid;
+    border-color: palegoldenrod;
+    border-width: medium;
+    font-family: "Lucida Console";
+}

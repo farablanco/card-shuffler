@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="slickCardShuffler.css"/>
+        <title>Slick Card Shuffler</title>
+    </head>
+    <body>
+
+        <h1>Welcome to ThisPear, Baby!</h1>
+        <h2 class="singsongy">lai, lai, lai, lai!</h2>
+
+        <div id="dealer" class="dealerWindow">
+        </div>
+        <div>
+            <input type="button" onclick="requestReset()" value="Serve New Deck">
+            <input type="button" onclick="requestShuffle()" value="Shuffle Deck">
+            <input type="button" onclick="requestHit()" value="Hit Deck">
+        </div>
+        <div class="window">
+            <p>House</p>
+            <div id="house" class="innerWindow"></div>
+        </div>
+        <div class="window">
+            <p>Hits</p>
+            <div id="hits" class="innerWindow"></div>
+        </div>
+
+        <script src="slickCardShuffler.js"></script>
+        <script>
+            var deck;
+            var fresh = [];
+            var isFresh = true;
+
+            window.onload = init();
+
+            function init(){
+                deck = new deckObj();
+
+                deck.init();
+                fresh = deck.cards.slice(); /* this copy will be served when new deck is requested */
+
+                // reveal() reverses card order shown in <div id="house">
+                // slice is used to avoid impacting deck.cards
+                // have to research if there's a better way of doing this, ie if passing object value is possible
+                deck.reveal(deck.cards.slice(), "house");
+
+                // dealer ramblings
+                document.getElementById("dealer").innerHTML = "Come in, come in, and take a seat at the only table" +
+                        " that favors the brave <span style='color:red'>&#128520;</span>";
+            }
+
+            function requestReset(){
+                if(isFresh) {
+                    document.getElementById("dealer").innerHTML = "Before you is a new deck...";
+                }
+                else {
+                    isFresh = true;
+                    document.getElementById("dealer").innerHTML = "As you wish...";
+
+                    deck.cards = fresh.slice(); // house card reset
+                    deck.xCards = [];           // cards in hand given back to dealer
+
+                    // reveal() reverses card order shown in <div id="house">
+                    // slice is used to avoid impacting deck.cards
+                    // have to research if there's a better way of doing this, ie if passing object value is possible
+                    deck.reveal(deck.cards.slice(), "house");
+                    document.getElementById("hits").innerHTML = "";
+                }
+            }
+
+            function requestShuffle(){
+                if(deck.cards.length < 2) {
+                    document.getElementById("dealer").innerHTML = "It's time to accept fate. " +
+                            "Do you want a fresh deck served?";
+                }
+                else {
+                    deck.shuffle();
+                    isFresh = false;
+                    document.getElementById("dealer").innerHTML = "Why? Can't catch a break?";
+                }
+            }
+
+            function requestHit(){
+                if(deck.cards.length == 0) {
+                    document.getElementById("dealer").innerHTML = "No more cards to deal. " +
+                            "Do you want a fresh deck served?";
+                }
+                else {
+                    deck.hit();
+                    document.getElementById("dealer").innerHTML = "Look at that a ".concat(deck.xCards[0].rank,
+                            deck.xCards[0].suit);
+                }
+            }
+
+        </script>
+    </body>
+</html>
